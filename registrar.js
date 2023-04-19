@@ -1,31 +1,44 @@
-$(document).ready(function() {
-    // on ready
- });
- 
- 
- async function registrarUsuario() {
-   let datos = {};
-   datos.nombre = document.getElementById('txtNombre').value;
-   datos.apellido = document.getElementById('txtApellido').value;
-   datos.email = document.getElementById('txtEmail').value;
-   datos.password = document.getElementById('txtPassword').value;
- 
-   let repetirPassword = document.getElementById('txtRepetirPassword').value;
- 
-   if (repetirPassword != datos.password) {
-     alert('La contraseña que escribiste es diferente.');
-     return;
-   }
- 
-   const request = await fetch("http://localhost:8080/usuario", {
-     method: 'POST',
-     headers: {
-       'Accept': 'application/json',
-       'Content-Type': 'application/json'
-     },
-     body: JSON.stringify(datos)
-   });
-   alert("La cuenta fue creada con exito!");
-   window.location.href = 'login.html'
- 
- }
+const formulario = document.querySelector('#formreg');
+
+formulario.addEventListener('submit', e => {
+  e.preventDefault();
+
+  const datos = {
+    nombre: document.querySelector('#txtNombre').value,
+    apellido: document.querySelector('#txtApellido').value,
+    email: document.querySelector('#txtEmail').value,
+    password: document.querySelector('#txtPassword').value
+  };
+   let repetirPassword = document.querySelector('#txtRepetirPassword').value;
+  // Comprobar que los campos 1 y 2 son iguales
+  if (datos.password !== repetirPassword) {
+    alert('Las contraseñas deben ser iguales');
+    return;
+  }
+
+  // Enviar los datos al servidor
+  fetch('http://localhost:8080/usuario', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(datos)
+  })
+  .then(response => {
+    if (response.ok) {
+      alert('Los datos se guardaron correctamente');
+      // Redirigir a otra página
+      window.location.assign("file:///C:/Users/martin/Downloads/Cvparagit/login.html");
+      
+    }
+
+    return response.json();
+    
+  })
+  .then(jsonw => {
+    if(jsonw.mensaje){
+    alert(jsonw.mensaje);
+    }
+
+  })
+});
