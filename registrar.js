@@ -28,7 +28,7 @@ formulario.addEventListener('submit', e => {
     if (response.ok) {
       alert('Los datos se guardaron correctamente');
       // Redirigir a otra página
-      window.location.assign("file:///C:/Users/martin/Downloads/Cvparagit/login.html");
+      window.location.assign("login.html");
       
     }
 
