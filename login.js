@@ -19,6 +19,9 @@ $(document).ready(function() {
  
    const respuesta = await request.text();
    if (respuesta != 'false') {
+
+    localStorage.token = respuesta;
+    localStorage.email = datos.email;
      
      window.location.href = 'index.html'
    } else {
